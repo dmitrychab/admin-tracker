@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,11 +23,12 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Build Capacitor APK
         run: |
+          if [ ! -d "www" ] && [ -f "index.html" ]; then
+            mkdir -p www
+            cp index.html www/
+          fi
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android
           npx cap init "Admin Tracker PRO" "com.admintracker.pro" --web-dir www
