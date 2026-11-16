@@ -23,17 +23,56 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Build Capacitor APK
+      - name: Build Direct WebView APK
         run: |
-          if [ ! -d "www" ] && [ -f "index.html" ]; then
-            mkdir -p www
-            cp index.html www/
+          mkdir -p www
+          if [ -f "index.html" ]; then
+            cp index.html www/index.html
+          fi
+          if [ ! -f "www/index.html" ]; then
+            echo "ОШИБКА: не найден файл index.html"
+            exit 1
+          fi
+          if ! grep -q "</html>" www/index.html; then
+            echo "ОШИБКА: файл index.html скопирован не полностью (нет </html> в конце)!"
+            exit 1
           fi
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android
           npx cap init "Admin Tracker PRO" "com.admintracker.pro" --web-dir www
           npx cap add android
           npx cap sync android
+          sed -i 's/AppTheme.NoActionBarLaunch/AppTheme.NoActionBar/g' android/app/src/main/AndroidManifest.xml
+          cat << 'EOF' > android/app/src/main/java/com/admintracker/pro/MainActivity.java
+          package com.admintracker.pro;
+
+          import android.os.Bundle;
+          import android.webkit.WebChromeClient;
+          import android.webkit.WebSettings;
+          import android.webkit.WebView;
+          import android.webkit.WebViewClient;
+          import androidx.appcompat.app.AppCompatActivity;
+
+          public class MainActivity extends AppCompatActivity {
+              @Override
+              protected void onCreate(Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+                  WebView webView = new WebView(this);
+                  webView.setFitsSystemWindows(true);
+                  webView.setBackgroundColor(0xFF0D0D0D);
+                  WebSettings s = webView.getSettings();
+                  s.setJavaScriptEnabled(true);
+                  s.setDomStorageEnabled(true);
+                  s.setDatabaseEnabled(true);
+                  s.setAllowFileAccess(true);
+                  s.setAllowFileAccessFromFileURLs(true);
+                  webView.setWebChromeClient(new WebChromeClient());
+                  webView.setWebViewClient(new WebViewClient());
+                  setContentView(webView);
+                  webView.loadUrl("file:///android_asset/public/index.html");
+              }
+          }
+          EOF
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug
