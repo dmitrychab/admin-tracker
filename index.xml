@@ -1,15 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE h<!tml>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Admin Tracker PRO — GTA RP</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Admin Tracker PRO</title>
   <style>
     :root {
       --bg: #0D0D0D;
-      --card-bg: rgba(24, 24, 30, 0.85);
+      --card: rgba(24, 25, 34, 0.92);
       --cyan: #00F0FF;
       --magenta: #FF007F;
       --green: #00FF66;
@@ -18,140 +16,347 @@
       --muted: #8A93A2;
       --radius: 20px;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      background-color: #050507;
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      background: #0D0D0D;
       color: var(--text);
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       min-height: 100vh;
     }
-
     .app-shell {
       width: 100%;
-      max-width: 430px;
+      max-width: 460px;
+      margin: 0 auto;
       min-height: 100vh;
-      background: radial-gradient(circle at 15% 10%, rgba(0, 240, 255, 0.08), transparent 40%),
-                  radial-gradient(circle at 85% 30%, rgba(255, 0, 127, 0.08), transparent 45%),
+      background: radial-gradient(circle at 15% 10%, rgba(0, 240, 255, 0.09), transparent 42%),
+                  radial-gradient(circle at 85% 30%, rgba(255, 0, 127, 0.09), transparent 45%),
                   var(--bg);
       display: flex;
       flex-direction: column;
-      position: relative;
+      padding-top: max(12px, env(safe-area-inset-top));
       padding-bottom: 84px;
-      overflow-x: hidden;
-      border-left: 1px solid rgba(255,255,255,0.04);
-      border-right: 1px solid rgba(255,255,255,0.04);
     }
-
-    /* Header */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 20px 12px;
-    }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .brand-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: 0.8px;
-      background: linear-gradient(90deg, #fff, var(--cyan));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .brand-sub {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px 12px; }
+    .brand-title { font-size: 19px; font-weight: 800; letter-spacing: 0.6px; color: var(--cyan); text-shadow: 0 0 12px rgba(0,240,255,0.4); }
+    .brand-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
     .profile-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.02));
-      border: 1px solid rgba(0, 240, 255, 0.35);
-      box-shadow: 0 0 14px rgba(0, 240, 255, 0.2);
-      color: var(--cyan);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.15s;
+      width: 42px; height: 42px; border-radius: 14px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(0, 240, 255, 0.45);
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.2); color: var(--cyan);
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
     }
-    .profile-btn:active { transform: scale(0.94); }
-
-    /* Screens */
-    .screen {
-      display: none;
-      padding: 0 18px 20px;
-      flex: 1;
-      flex-direction: column;
-      gap: 16px;
-      animation: fadeIn 0.2s ease;
-    }
+    .screen { display: none; padding: 0 18px 20px; flex: 1; flex-direction: column; gap: 16px; }
     .screen.active { display: flex; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Premium Banner */
     .premium-banner {
       background: linear-gradient(135deg, rgba(255, 0, 127, 0.22), rgba(0, 240, 255, 0.16));
-      border: 1px solid rgba(255, 0, 127, 0.45);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 0 22px rgba(255, 0, 127, 0.18), inset 0 1px 0 rgba(255,255,255,0.2);
-      cursor: pointer;
+      border: 1px solid rgba(255, 0, 127, 0.5); border-radius: var(--radius);
+      padding: 14px 16px; display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 0 20px rgba(255, 0, 127, 0.18); cursor: pointer;
     }
-
-    .premium-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
+    .premium-left { display: flex; align-items: center; gap: 12px; }
     .infinity-badge {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: rgba(0,0,0,0.45);
-      border: 1px solid var(--magenta);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      font-weight: 700;
-      color: #fff;
-      text-shadow: 0 0 10px var(--magenta);
+      width: 40px; height: 40px; border-radius: 12px; background: rgba(0,0,0,0.45);
+      border: 1px solid var(--magenta); display: flex; align-items: center; justify-content: center;
+      font-size: 24px; font-weight: 700; color: #fff; text-shadow: 0 0 10px var(--magenta);
     }
-
-.premium-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.6px;
-      color: #fff;
+    .premium-title { font-size: 14px; font-weight: 800; letter-spacing: 0.6px; color: #fff; }
+    .premium-desc { font-size: 11px; color: #d6dce6; margin-top: 2px; }
+    .premium-tag { font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 10px; background: var(--magenta); color: #fff; }
+    .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .neon-card {
+      background: var(--card); border-radius: var(--radius); padding: 16px 14px;
+      display: flex; flex-direction: column; justify-content: space-between; min-height: 175px;
     }
+    .card-cyan { border: 1.5px solid rgba(0, 240, 255, 0.55); box-shadow: 0 0 20px rgba(0, 240, 255, 0.14); }
+    .card-pink { border: 1.5px solid rgba(255, 0, 127, 0.55); box-shadow: 0 0 20px rgba(255, 0, 127, 0.14); }
+    .card-head { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; }
+    .card-cyan .card-head { color: var(--cyan); }
+    .card-pink .card-head { color: var(--magenta); }
+    .big-stat { font-size: 34px; font-weight: 800; color: #fff; line-height: 1.1; margin: 8px 0 2px; }
+    .sub-stat { font-size: 11px; color: var(--muted); }
+    .counter-actions { display: flex; gap: 8px; margin-top: 10px; }
+    .btn-mini {
+      flex: 1; padding: 9px 0; border-radius: 12px; border: 1px solid rgba(0, 240, 255, 0.45);
+      background: rgba(0, 240, 255, 0.12); color: #fff; font-weight: 700; font-size: 14px; cursor: pointer;
+    }
+    .btn-mini.plus { background: rgba(0, 240, 255, 0.25); }
+    .pink-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .btn-pink {
+      padding: 9px 10px; border-radius: 12px; border: 1px solid rgba(255, 0, 127, 0.5);
+      background: rgba(255, 0, 127, 0.18); color: #fff; font-size: 12px; font-weight: 600; cursor: pointer; text-align: center;
+    }
+    .btn-report {
+      width: 100%; padding: 16px; border-radius: var(--radius);
+      background: rgba(0, 255, 102, 0.12); border: 1.5px solid var(--green);
+      box-shadow: 0 0 20px rgba(0, 255, 102, 0.2); color: #fff;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .duty-section { display: flex; flex-direction: column; align-items: center; padding: 8px 0; gap: 10px; }
+    .duty-timer { font-size: 22px; font-weight: 700; letter-spacing: 2px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .duty-timer.active { color: var(--green); text-shadow: 0 0 12px rgba(0, 255, 102, 0.5); }
+    .duty-btn {
+      width: 144px; height: 144px; border-radius: 50%; background: #12131A;
+      border: 3px solid var(--red); box-shadow: 0 0 30px rgba(255, 42, 75, 0.4);
+      color: var(--red); font-size: 16px; font-weight: 800; letter-spacing: 1px;
+      cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    }
+    .duty-btn.on { border-color: var(--green); color: var(--green); box-shadow: 0 0 36px rgba(0, 255, 102, 0.45); }
+    .duty-hint { font-size: 10px; color: var(--muted); font-weight: 500; }
+    .panel {
+      background: var(--card); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .section-title { font-size: 15px; font-weight: 700; color: var(--cyan); }
+    .field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .field input, .field select {
+      width: 100%; padding: 12px 14px; border-radius: 14px; background: #0B0C10;
+      border: 1px solid rgba(255,255,255,0.16); color: #fff; font-size: 14px; outline: none;
+    }
+    .preview-box {
+      background: #08090C; border: 1px dashed rgba(255, 0, 127, 0.55);
+      border-radius: 14px; padding: 12px; font-size: 13px; line-height: 1.45; color: #e8ecf3;
+    }
+    .btn-copy {
+      width: 100%; padding: 14px; border-radius: 14px;
+      background: linear-gradient(90deg, var(--magenta), #B800FF); border: none;
+      color: #fff; font-weight: 700; font-size: 14px; cursor: pointer;
+    }
+    .templates-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip {
+      padding: 8px 12px; border-radius: 12px; background: rgba(255, 0, 127, 0.16);
+      border: 1px solid rgba(255, 0, 127, 0.45); color: #fff; font-size: 12px; cursor: pointer;
+    }
+    .chart-bars { display: flex; align-items: flex-end; justify-content: space-between; height: 140px; padding-top: 16px; gap: 8px; }
+    .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; }
+    .bar-fill { width: 100%; max-width: 26px; border-radius: 8px 8px 4px 4px; background: linear-gradient(180deg, var(--cyan), rgba(0, 240, 255, 0.25)); }
+    .bar-val { font-size: 10px; color: #fff; font-weight: 600; }
+    .bar-day { font-size: 11px; color: var(--muted); }
+    .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px; }
+    .stat-row:last-child { border-bottom: none; }
+    .badge-neon { padding: 4px 10px; border-radius: 10px; background: rgba(0, 255, 102, 0.15); border: 1px solid var(--green); color: var(--green); font-weight: 700; font-size: 12px; }
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 460px; height: 72px; background: rgba(14, 14, 18, 0.96);
+      border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-around; align-items: center; z-index: 20;
+    }
+    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; background: none; border: none; color: var(--muted); font-size: 11px; font-weight: 600; cursor: pointer; }
+    .nav-item.active { color: var(--cyan); }
+    .toast {
+      position: fixed; top: 24px; left: 50%; transform: translateX(-50%) translateY(-100px);
+      background: #141820; border: 1px solid var(--green); color: #fff;
+      padding: 10px 18px; border-radius: 14px; font-size: 13px; font-weight: 600; z-index: 100; transition: transform 0.25s;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+      display: none; align-items: center; justify-content: center; padding: 20px; z-index: 50;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      width: 100%; max-width: 380px; background: #14151C; border: 1px solid var(--cyan);
+      border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="header">
+      <div>
+        <div class="brand-title">Admin Tracker PRO</div>
+        <div class="brand-sub" id="adminHeaderName">Админ: Logan_Vercetti</div>
+      </div>
+      <button class="profile-btn" onclick="switchTab('settings')">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
+    </header>
 
-    .premium-desc {
+    <main id="screen-home" class="screen active">
+      <div class="premium-banner" onclick="openModal('Отключена реклама и открыта глубокая аналитика нарушений на 30 дней.', 'PREMIUM ∞ АКТИВЕН')">
+        <div class="premium-left">
+          <div class="infinity-badge">∞</div>
+          <div>
+            <div class="premium-title">PREMIUM</div>
+            <div class="premium-desc">Без рекламы • Глубокая статистика</div>
+          </div>
+        </div>
+        <div class="premium-tag">PRO</div>
+      </div>
+
+      <div class="cards-grid">
+        <div class="neon-card card-cyan">
+          <div>
+            <div class="card-head">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              <span>Репорты</span>
+            </div>
+            <div class="big-stat" id="reportCount">42</div>
+            <div class="sub-stat">Отвечено сегодня</div>
+            <div class="sub-stat" style="margin-top:4px; color:#00F0FF;">В очереди: <span id="queueCount">3</span></div>
+          </div>
+          <div class="counter-actions">
+            <button class="btn-mini" onclick="changeReports(-1)">-1</button>
+            <button class="btn-mini plus" onclick="changeReports(1)">+1</button>
+          </div>
+        </div>
+
+        <div class="neon-card card-pink">
+          <div>
+            <div class="card-head">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+              </svg>
+              <span>Формы</span>
+            </div>
+            <div class="sub-stat" style="margin-top:6px; color:#fff; font-weight:600;">Быстрый ответ</div>
+            <div class="sub-stat">Форм за смену: <span id="formsUsedCount">7</span></div>
+          </div>
+          <div class="pink-actions">
+            <button class="btn-pink" onclick="switchTab('forms')">Написать наказание</button>
+            <button class="btn-pink" onclick="switchTab('forms'); applyTemplate('warn')">Шаблоны</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-report" onclick="generateShiftReport()">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+        Сгенерировать отчет за смену
+      </button>
+
+      <div class="duty-section">
+        <div class="duty-timer" id="dutyTimer">00:00:00</div>
+        <button class="duty-btn" id="dutyBtn" onclick="toggleDuty()">
+          <span id="dutyText">OFF DUTY</span>
+          <span class="duty-hint" id="dutyHint">Нажмите для начала</span>
+        </button>
+      </div>
+    </main>
+
+    <section id="screen-forms" class="screen">
+      <div class="panel">
+        <div class="section-title">Редактор форм и наказаний</div>
+        <div class="templates-row">
+          <button class="chip" onclick="applyTemplate('warn')">Выдать варн</button>
+          <button class="chip" onclick="applyTemplate('unban')">Снять бан</button>
+          <button class="chip" onclick="applyTemplate('deny')">Отказ в жалобе</button>
+        </div>
+        <div class="field">
+          <label>Ник или ID нарушителя</label>
+          <input type="text" id="targetNick" value="Dante_Moretti" oninput="updatePreview()" />
+        </div>
+        <div class="field">
+          <label>Пункт правил</label>
+          <select id="ruleSelect" onchange="updatePreview()">
+            <option value="2.1 DM (Убийство без причины)">п. 2.1 DM (Убийство без причины)</option>
+            <option value="2.2 DB (Нанесение урона авто)">п. 2.2 DB (Нанесение урона авто)</option>
+            <option value="2.3 PG (PowerGaming)">п. 2.3 PG (PowerGaming)</option>
+            <option value="3.1 MG (MetaGaming)">п. 3.1 MG (MetaGaming)</option>
+            <option value="4.1 NonRP поведение">п. 4.1 NonRP поведение</option>
+            <option value="5.2 Уход от RP">п. 5.2 Уход от RP</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Тип наказания</label>
+          <select id="punishmentSelect" onchange="updatePreview()">
+            <option value="Jail 60 min">Jail 60 min</option>
+            <option value="Jail 120 min">Jail 120 min</option>
+            <option value="Warn">Warn (Предупреждение)</option>
+            <option value="Ban 3 дня">Ban 3 дня</option>
+            <option value="Mute 30 min">Mute 30 min</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Готовый текст (автогенерация)</label>
+          <div class="preview-box" id="formPreview"></div>
+        </div>
+        <button class="btn-copy" onclick="copyForm()">Скопировать в буфер обмена</button>
+      </div>
+    </section>
+
+    <section id="screen-stats" class="screen">
+      <div class="panel">
+        <div class="section-title">Репорты за неделю</div>
+        <div class="chart-bars" id="weeklyChart"></div>
+      </div>
+      <div class="panel">
+        <div class="section-title">Эффективность</div>
+        <div class="stat-row"><span>Средняя скорость ответа</span><span class="badge-neon">14 сек</span></div>
+        <div class="stat-row"><span>Закрыто за неделю</span><span style="font-weight:700; color:var(--cyan);">286 репортов</span></div>
+      </div>
+      <div class="panel">
+        <div class="section-title" style="color:var(--magenta);">Топ-3 нарушений</div>
+        <div class="stat-row"><span>1. п. 2.1 DM</span><span style="color:var(--magenta); font-weight:700;">44%</span></div>
+        <div class="stat-row"><span>2. п. 4.1 NonRP</span><span style="color:var(--cyan); font-weight:700;">31%</span></div>
+        <div class="stat-row"><span>3. п. 3.1 MG</span><span style="color:var(--green); font-weight:700;">25%</span></div>
+      </div>
+    </section>
+
+    <section id="screen-settings" class="screen">
+      <div class="panel">
+        <div class="section-title">Профиль администратора</div>
+        <div class="field">
+          <label>Ваш игровой никнейм</label>
+          <input type="text" id="adminNickInput" value="Logan_Vercetti" onchange="saveAdminNick()" />
+        </div>
+        <button class="btn-copy" onclick="saveAdminNick()">Сохранить ник</button>
+        <button class="btn-report" style="padding:12px;" onclick="resetDay()">Сбросить счетчики дня</button>
+      </div>
+    </section>
+
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-tab="home" onclick="switchTab('home')">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Главная
+      </button>
+      <button class="nav-item" data-tab="forms" onclick="switchTab('forms')">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Формы
+      </button>
+      <button class="nav-item" data-tab="stats" onclick="switchTab('stats')">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Статистика
+      </button>
+      <button class="nav-item" data-tab="settings" onclick="switchTab('settings')">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Настройки
+      </button>
+    </nav>
+  </div>
+
+  <div class="toast" id="toast">Скопировано!</div>
+  <div class="modal-backdrop" id="modal">
+    <div class="modal-card">
+      <div class="section-title" id="modalTitle">Отчет за смену</div>
+      <div class="preview-box" id="modalBody" style="white-space: pre-line;"></div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn-copy" onclick="copyModalText()">Скопировать</button>
+        <button class="btn-mini" style="padding:0 16px;" onclick="closeModal()">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function getStore(k, def) { try { var v = localStorage.getItem(k); return v !== null ? v : def; } catch (e) { return def; } }
+    function setStore(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+    var state = {
+      reports: Number(getStore('at_reports', 42)),
+      queue: 3,
+      formsUsed: Number(getStore('at_forms', 7)),
+      adminNick: getStore('at_nick', 'Logan_Vercetti'),
+      onDuty: false,
+      dutySeconds: Number(getStore('at_duty_sec', 0)),
+      dutyInterval: null,
+      lastTick: null
+    };
+
+    function init() {
+      document.getElementById('reportCount').textContent = state.reports;
+      document.getElementById('formsUsedCount').textContent = state.formsUsed;
+      document.getElementById('adminNickInput').value = state.adminNick;
