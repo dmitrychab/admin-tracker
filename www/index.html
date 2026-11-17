@@ -250,7 +250,7 @@ html,body{background:#0D0D0D;color:#F5F7FA;font-family:-apple-system,BlinkMacSys
 <div class="mb" id="mod"><div class="mc"><div class="stitle" id="mt"></div><div class="prev" id="mbd"></div><div style="display:flex;gap:10px"><button class="cpbtn" onclick="cp(document.getElementById('mbd').textContent);cMod()">Скопировать</button><button class="mbtn" style="padding:0 14px" onclick="cMod()">Закрыть</button></div></div></div>
 
 <script>
-var DEFAULT_DB='';
+var DEFAULT_DB='https://admin-tracer-default-rtdb.europe-west1.firebasedatabase.app/';
 function gs(k,d){try{var v=localStorage.getItem(k);return v!==null?v:d}catch(e){return d}}
 function ss(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 function gj(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
